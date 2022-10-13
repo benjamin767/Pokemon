@@ -7,7 +7,10 @@ import Nav from './components/Nav/Nav';
 function App() {
   return (
     <div>
-    <Nav />
+      <Route 
+        path='/home'
+        component={Nav}
+      />
       <Route
         exact
         path='/'
