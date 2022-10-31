@@ -3,21 +3,20 @@ import Card from '../Card/Card';
 import { getPokemons } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
+import Spinner from '../Spinner/Spinner';
 
 function Cards() {
   let dispatch = useDispatch();
-  const pokemons = useSelector(state => state.allPokemons);
+  
   useEffect(() => {
     dispatch(getPokemons());
-  }, []);
+  }, [dispatch]);
+  const isLoading = useSelector(state => state.loading);
+  const pokemons = useSelector(state => state.allPokemons);
 
   return (
     <div >
-      {pokemons && pokemons.map((pokemon, i) => <Card
-                                                  key={i}
-                                                  name={pokemon.name}
-                                                  url={pokemon.url}
-                                                />)}
+      {isLoading ? <Spinner/> : pokemons.map((pokemon) => <Card key={pokemon.id} pokemon={pokemon}/>)}
     </div>
   );
 }

@@ -5,6 +5,14 @@ function capitalize(s){
     return s[0].toUpperCase() + s.slice(1).toLowerCase();
 }
 
+function pokemonsMap(pokemons) {
+	pokemons.forEach(pokemon => {
+		pokemon.Types = pokemon.Types.map(type =>{
+			return {name: type.type.name}
+		} ); 
+	});
+}
+
 module.exports = {
 	getPokemonsApi: async ()=>{
 		let apiData = await axios.get('https://pokeapi.co/api/v2/pokemon');
@@ -21,7 +29,7 @@ module.exports = {
 				api: true,
 				id: pokemon.data.id,
 				name: capitalize(pokemon.data.name),
-				types: pokemon.data.types,
+				Types: pokemon.data.types,
 				hp: pokemon.data.stats[0].base_stat,
 				attack: pokemon.data.stats[1].base_stat,
 				defense: pokemon.data.stats[2].base_stat,
@@ -31,6 +39,7 @@ module.exports = {
 				image: pokemon.data.sprites.front_default,
 			}
 		});
+		pokemonsMap(pokemonsData);
 		
 		return pokemonsData;
 	},
