@@ -4,6 +4,8 @@ export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
 export const GET_DETAIL_POKEMON = "GET_DETAIL_POKEMON";
 export const EMPTY_DETAILS = "EMPTY_DETAILS";
 export const SET_LOADING = "SET_LOADING";
+export const GET_TYPES = "GET_TYPES";
+export const GET_POKEMONS_BY_TYPES = "GET_POKEMONS_BY_TYPES";
 
 export const getPokemons = ()=>{
 	return async function(dispatch){
@@ -22,7 +24,6 @@ export const getPokemons = ()=>{
 export const getPokemonDetails = (id) => async (dispatch) => {
 	dispatch(setLoading(true));
 	dispatch(emptyDetails());
-	console.log("EStoy en GETDetails");
 	try{
 		let pokeDetails = await axios.get(`http://localhost:3001/pokemons/${id}`);
 		dispatch({type: GET_DETAIL_POKEMON, payload: pokeDetails.data});
@@ -30,13 +31,13 @@ export const getPokemonDetails = (id) => async (dispatch) => {
 		console.log(error.message);
 	}
 	dispatch(setLoading(false));
-}
+};
 
 export const emptyDetails = () => (dispatch) => {
 	dispatch({
 		type: EMPTY_DETAILS,
 	});
-}
+};
 
 export const setLoading = boolLoading => dispatch => {
 	dispatch({
@@ -44,3 +45,22 @@ export const setLoading = boolLoading => dispatch => {
 		payload: boolLoading,
 	});
 };
+
+export const getTypes = () => async (dispatch) => {
+	try{
+		const types = await axios.get('http://localhost:3001/types');
+		dispatch({type: GET_TYPES, payload: types.data})
+	}catch(error){
+		console.log(error.message);
+	}
+} 
+
+export const getPokemonsByTypes = (type) => async (dispatch) => {
+	try{
+		const pokemons = await axios.get('http://localhost:3001/pokemons');
+		pokemons = pokemons.data.filter(pokemon => pokemon.Type[0].name === type || pokemon.Type[1].name === type);
+		dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons})
+	}catch(error){
+		console.log(error.message);
+	}
+} 

@@ -14,10 +14,10 @@ module.exports = {
 			[type] = await Type.findOrCreate({
 				where: {name: type.name}
 			});
-			allTypes.push(type);
+			allTypes.push(type.name);
 		}
-		let typesDB = await Type.findAll();
-		allTypes = [...new Set([...typesDB,...allTypes])]
+		// let typesDB = await Type.findAll();
+		// allTypes = [...new Set([...typesDB,...allTypes])]
   		return allTypes;
 	}
 };
