@@ -6,7 +6,7 @@ function PokeDetails({pokemon: {name, image, id, Types, hp, attack, defense, spe
   return (
     <section>
       <h2>{name}</h2>
-      <h4>id</h4>
+      <h4>{id}</h4>
       <img src={image} alt="pokemon img"/>
       <div>types: {Types.map(type => <span>{type.name}</span>)}</div>
       <div>
