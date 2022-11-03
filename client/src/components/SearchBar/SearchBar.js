@@ -15,6 +15,7 @@ export default function SearchBar({onSearch}) {
       e.preventDefault();
       onSearch();
     }}>
+
       <input
         type="text"
         placeholder=""

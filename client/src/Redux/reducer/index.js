@@ -1,4 +1,4 @@
-import {GET_ALL_POKEMONS, GET_DETAIL_POKEMON, EMPTY_DETAILS, SET_LOADING, GET_TYPES} from '../actions/index.js';
+import {GET_ALL_POKEMONS, GET_DETAIL_POKEMON, EMPTY_DETAILS, GET_POKEMONS_BY_TYPES, SET_LOADING, GET_TYPES} from '../actions/index.js';
 
 const initialState = {
   allPokemons: [],
@@ -19,6 +19,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, loading: action.payload};
     case GET_TYPES: 
       return {...state, types: action.payload};
+    case GET_POKEMONS_BY_TYPES: 
+      return {...state, allPokemons: action.payload};
     default: return state;
   }
 }
