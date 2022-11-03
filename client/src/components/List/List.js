@@ -11,7 +11,7 @@ function List({options}) {
 
 	return (
     <select name="types" className="types" onChange={handlerType}>
-    	<option value='all'>all</option>
+    	<option value='default'>default</option>
     	{options && options.map((option,i) => <option key={i} value={option}>{option}</option>)}
     </select>
   );

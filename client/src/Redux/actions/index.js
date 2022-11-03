@@ -60,8 +60,8 @@ export const getPokemonsByTypes = (type) => async (dispatch) => {
 	try{
 		let pokemons = await axios.get('http://localhost:3001/pokemons');
 		pokemons = pokemons.data;
-		if(type === 'all') dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
-		if(type !== 'all'){
+		if(type === 'default') dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
+		if(type !== 'default'){
 			pokemons = pokemons.filter(pokemon => { 
 				if(pokemon.Types[0].name === type) return pokemon;
 				if(pokemon.Types[1]) return pokemon.Types[1].name === type;
