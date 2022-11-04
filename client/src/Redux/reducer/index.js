@@ -1,4 +1,10 @@
-import {GET_ALL_POKEMONS, GET_DETAIL_POKEMON, EMPTY_DETAILS, GET_POKEMONS_BY_TYPES, SET_LOADING, GET_TYPES} from '../actions/index.js';
+import {GET_ALL_POKEMONS, 
+  GET_DETAIL_POKEMON, 
+  EMPTY_DETAILS, 
+  GET_POKEMONS_BY_TYPES, 
+  GET_POKEMONS_BY_SELECTION, 
+  SET_LOADING, 
+  GET_TYPES} from '../actions/index.js';
 
 const initialState = {
   allPokemons: [],

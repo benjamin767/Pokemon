@@ -6,6 +6,7 @@ export const EMPTY_DETAILS = "EMPTY_DETAILS";
 export const SET_LOADING = "SET_LOADING";
 export const GET_TYPES = "GET_TYPES";
 export const GET_POKEMONS_BY_TYPES = "GET_POKEMONS_BY_TYPES";
+export const GET_POKEMONS_BY_SELECTION = "GET_POKEMONS_BY_SELECTION";
 
 
 export const getPokemons = ()=>{
@@ -20,7 +21,7 @@ export const getPokemons = ()=>{
 		dispatch(setLoading(false));
 	}
 
-}
+};
 
 export const getPokemonDetails = (id) => async (dispatch) => {
 	dispatch(emptyDetails());
@@ -53,7 +54,7 @@ export const getTypes = () => async (dispatch) => {
 	}catch(error){
 		console.log(error.message);
 	}
-} 
+};
 
 export const getPokemonsByTypes = (type) => async (dispatch) => {
 	dispatch(setLoading(true));
@@ -72,5 +73,6 @@ export const getPokemonsByTypes = (type) => async (dispatch) => {
 		console.log(error.message);
 	}
 	dispatch(setLoading(false));
-} 
+};
 
+export const getPokemonsBySelection = (selection) => {};

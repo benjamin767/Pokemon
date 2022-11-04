@@ -1,8 +1,5 @@
-import { useDispatch } from "react-redux";
-import { getPokemonsByTypes } from "../../Redux/actions";
 
 function List({options, handler}) {
-	const dispatch = useDispatch();
 
 	return (
     <select name="types" className="types" onChange={handler}>
