@@ -14,7 +14,7 @@ export default function SearchBar({onSearch}) {
 
   const handlerType = (event)=>{
     let type = event.target.value;
-    dispatch(getPokemonsByTypes(type));
+    dispatch(getPokemonsByTypes(type, pokemons));
   }
   const handlerSelectBy = (event)=>{
     let selection = event.target.value;

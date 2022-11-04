@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const GET_ALL_POKEMONS = "GET_ALL_POKEMONS";
+export const GET_POKEMONS = "GET_POKEMONS";
 export const GET_DETAIL_POKEMON = "GET_DETAIL_POKEMON";
 export const EMPTY_DETAILS = "EMPTY_DETAILS";
 export const SET_LOADING = "SET_LOADING";
@@ -14,7 +15,8 @@ export const getPokemons = ()=>{
 		dispatch(setLoading(true));
 		try{
 			let pokemons = await axios.get('http://localhost:3001/pokemons');
-			dispatch({type: GET_ALL_POKEMONS, payload: pokemons.data})
+			dispatch({type: GET_ALL_POKEMONS, payload: pokemons.data});
+			dispatch({type: GET_POKEMONS, payload: pokemons.data});
 		}catch(error){
 			console.log(error.message)
 		}
@@ -56,21 +58,15 @@ export const getTypes = () => async (dispatch) => {
 	}
 };
 
-export const getPokemonsByTypes = (type) => async (dispatch) => {
+export const getPokemonsByTypes = (type,pokemons) => (dispatch) => {
 	dispatch(setLoading(true));
-	try{
-		let pokemons = await axios.get('http://localhost:3001/pokemons');
-		pokemons = pokemons.data;
-		if(type === 'default') dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
-		if(type !== 'default'){
-			pokemons = pokemons.filter(pokemon => { 
-				if(pokemon.Types[0].name === type) return pokemon;
-				if(pokemon.Types[1]) return pokemon.Types[1].name === type;
-			});
-			dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
-		}
-	}catch(error){
-		console.log(error.message);
+	if(type === 'default') dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
+	if(type !== 'default'){
+		pokemons = pokemons.filter(pokemon => { 
+			if(pokemon.Types[0].name === type) return pokemon;
+			if(pokemon.Types[1]) return pokemon.Types[1].name === type;
+		});
+		dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
 	}
 	dispatch(setLoading(false));
 };

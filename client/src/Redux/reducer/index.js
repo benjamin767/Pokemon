@@ -1,4 +1,5 @@
 import {GET_ALL_POKEMONS, 
+  GET_POKEMONS,
   GET_DETAIL_POKEMON, 
   EMPTY_DETAILS, 
   GET_POKEMONS_BY_TYPES, 
@@ -8,6 +9,7 @@ import {GET_ALL_POKEMONS,
 
 const initialState = {
   allPokemons: [],
+  pokemons: [],
   details: undefined,
   loading: false,
   types: [],
@@ -17,6 +19,8 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_POKEMONS:
       return {...state, allPokemons: action.payload};
+    case GET_POKEMONS:
+      return {...state, pokemons: action.payload};
     case GET_DETAIL_POKEMON: 
       return {...state, details: action.payload};
     case EMPTY_DETAILS: 
@@ -26,7 +30,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_TYPES: 
       return {...state, types: action.payload};
     case GET_POKEMONS_BY_TYPES: 
-      return {...state, allPokemons: action.payload};
+      return {...state, pokemons: action.payload};
     default: return state;
   }
 }

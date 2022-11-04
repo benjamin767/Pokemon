@@ -12,11 +12,13 @@ function Cards() {
     dispatch(getPokemons());
   }, [dispatch]);
   const isLoading = useSelector(state => state.loading);
-  const pokemons = useSelector(state => state.allPokemons);
+  const pokemons = useSelector(state => state.pokemons);
 
   return (
     <div >
+
       {isLoading ? <Spinner/> : pokemons.map((pokemon) => <Card key={pokemon.id} pokemon={pokemon}/>)}
+
     </div>
   );
 }
