@@ -8,6 +8,7 @@ export const SET_LOADING = "SET_LOADING";
 export const GET_TYPES = "GET_TYPES";
 export const GET_POKEMONS_BY_TYPES = "GET_POKEMONS_BY_TYPES";
 export const GET_POKEMONS_BY_SELECTION = "GET_POKEMONS_BY_SELECTION";
+export const GET_POKEMONS_BY_SKILL = "GET_POKEMONS_BY_SKILL";
 
 
 export const getPokemons = ()=>{
@@ -73,7 +74,8 @@ export const getPokemonsByTypes = (type,pokemons) => (dispatch) => {
 
 export const getPokemonsBySelection = (selection, pokemons) => (dispatch) =>{
 	dispatch(setLoading(true));
-	if(selection === 'existing'){
+	if(selection === 'default') dispatch({type: GET_POKEMONS_BY_SELECTION, payload: pokemons});
+	else if(selection === 'existing'){
 		pokemons = pokemons.filter(pokemon => pokemon.hasOwnProperty("api"));
 		dispatch({type: GET_POKEMONS_BY_SELECTION, payload: pokemons});
 	}
@@ -83,3 +85,33 @@ export const getPokemonsBySelection = (selection, pokemons) => (dispatch) =>{
 	}
 	dispatch(setLoading(false));
 };
+
+export const getPokemonsBySkill = (skill, pokemons) => (dispatch) =>{
+	dispatch(setLoading(true));
+	if(skill === 'default') dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	else if(skill === 'max attack'){
+		pokemons.sort(function(a, b) {
+  			return a.attack - b.attack;
+		}).reverse();
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	}
+	else if(skill === 'min attack'){
+		pokemons.sort(function(a, b) {
+  			return a.attack - b.attack;
+		});
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	}
+	else if(skill === 'max defense'){
+		pokemons.sort(function(a, b) {
+  			return a.defense - b.defense;
+		}).reverse();
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	}
+	else {
+		pokemons.sort(function(a, b) {
+  			return a.defense - b.defense;
+		})
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	}
+	dispatch(setLoading(false));
+}
