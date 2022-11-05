@@ -61,7 +61,7 @@ export const getTypes = () => async (dispatch) => {
 export const getPokemonsByTypes = (type,pokemons) => (dispatch) => {
 	dispatch(setLoading(true));
 	if(type === 'default') dispatch({type: GET_POKEMONS_BY_TYPES, payload: pokemons});
-	if(type !== 'default'){
+	else{
 		pokemons = pokemons.filter(pokemon => { 
 			if(pokemon.Types[0].name === type) return pokemon;
 			if(pokemon.Types[1]) return pokemon.Types[1].name === type;
@@ -71,4 +71,15 @@ export const getPokemonsByTypes = (type,pokemons) => (dispatch) => {
 	dispatch(setLoading(false));
 };
 
-export const getPokemonsBySelection = (selection) => {};
+export const getPokemonsBySelection = (selection, pokemons) => {
+	dispatch(setLoading(true));
+	if(selection === 'existing'){
+		pokemons = pokemons.filter(pokemon => pokemon.hasOwnProperty("api"));
+		return {type: GET_POKEMONS_BY_SELECTION, payload: pokemons}
+	}
+	else {
+		pokemons = pokemons.filter(pokemon => !pokemon.hasOwnProperty("api"));
+		return {type: GET_POKEMONS_BY_SELECTION, payload: pokemons}
+	}
+	dispatch(setLoading(false));
+};
