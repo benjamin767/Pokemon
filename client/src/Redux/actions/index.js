@@ -71,15 +71,15 @@ export const getPokemonsByTypes = (type,pokemons) => (dispatch) => {
 	dispatch(setLoading(false));
 };
 
-export const getPokemonsBySelection = (selection, pokemons) => {
+export const getPokemonsBySelection = (selection, pokemons) => (dispatch) =>{
 	dispatch(setLoading(true));
 	if(selection === 'existing'){
 		pokemons = pokemons.filter(pokemon => pokemon.hasOwnProperty("api"));
-		return {type: GET_POKEMONS_BY_SELECTION, payload: pokemons}
+		dispatch({type: GET_POKEMONS_BY_SELECTION, payload: pokemons});
 	}
 	else {
 		pokemons = pokemons.filter(pokemon => !pokemon.hasOwnProperty("api"));
-		return {type: GET_POKEMONS_BY_SELECTION, payload: pokemons}
+		dispatch({type: GET_POKEMONS_BY_SELECTION, payload: pokemons});
 	}
 	dispatch(setLoading(false));
 };
