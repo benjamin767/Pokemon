@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import List from '../List/List';
 import { useDispatch, useSelector } from "react-redux";
-import { getTypes, getPokemonsByTypes, getPokemonsBySelection, getPokemonsBySkill } from "../../Redux/actions";
+import { getTypes, getPokemonsByTypes, getPokemonsBySelection, getPokemonsBySkill, orderBy } from "../../Redux/actions";
 
 export default function SearchBar({onSearch}) {
   const dispatch = useDispatch();
@@ -12,6 +12,7 @@ export default function SearchBar({onSearch}) {
   const pokemons = useSelector(state => state.allPokemons);
   const createdOrApi = ["created", "existing"];
   const defenseOrAttack = ["max attack", "min attack" , "max defense", "min defense"];
+  const orders = ["upward", "falling"];
 
   const handlerType = (event)=>{
     let type = event.target.value;
@@ -25,6 +26,11 @@ export default function SearchBar({onSearch}) {
   const handlerSkill = (event)=>{
     let skill = event.target.value;
     dispatch(getPokemonsBySkill(skill, pokemons));
+  }
+
+  const handlerOrder = (event)=>{
+    let order = event.target.value;
+    dispatch(orderBy(order, pokemons));
   }
 
   return (
@@ -43,6 +49,7 @@ export default function SearchBar({onSearch}) {
       <label>by types:</label> <List options={types} handler={handlerType}/>
       <label>select them by:</label> <List options={createdOrApi} handler={handlerSelectBy}/>
       <label>by skill:</label> <List options={defenseOrAttack} handler={handlerSkill}/>
+      <label>order by:</label> <List options={orders} handler={handlerOrder}/>
     </form>
   );
 }

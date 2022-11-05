@@ -9,7 +9,7 @@ export const GET_TYPES = "GET_TYPES";
 export const GET_POKEMONS_BY_TYPES = "GET_POKEMONS_BY_TYPES";
 export const GET_POKEMONS_BY_SELECTION = "GET_POKEMONS_BY_SELECTION";
 export const GET_POKEMONS_BY_SKILL = "GET_POKEMONS_BY_SKILL";
-
+export const GET_POKEMONS_BY_ORDER = "GET_POKEMONS_BY_ORDER";
 
 export const getPokemons = ()=>{
 	return async function(dispatch){
@@ -88,30 +88,54 @@ export const getPokemonsBySelection = (selection, pokemons) => (dispatch) =>{
 
 export const getPokemonsBySkill = (skill, pokemons) => (dispatch) =>{
 	dispatch(setLoading(true));
-	if(skill === 'default') dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+	let pokeCopy = [...pokemons];
+	if(skill === 'default') dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokeCopy});
 	else if(skill === 'max attack'){
-		pokemons.sort(function(a, b) {
+		pokeCopy.sort(function(a, b) {
   			return a.attack - b.attack;
 		}).reverse();
-		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokeCopy});
 	}
 	else if(skill === 'min attack'){
-		pokemons.sort(function(a, b) {
+		pokeCopy.sort(function(a, b) {
   			return a.attack - b.attack;
 		});
-		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokeCopy});
 	}
 	else if(skill === 'max defense'){
-		pokemons.sort(function(a, b) {
+		pokeCopy.sort(function(a, b) {
   			return a.defense - b.defense;
 		}).reverse();
-		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokeCopy});
 	}
 	else {
-		pokemons.sort(function(a, b) {
+		pokeCopy.sort(function(a, b) {
   			return a.defense - b.defense;
 		})
-		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokemons});
+		dispatch({type: GET_POKEMONS_BY_SKILL, payload: pokeCopy});
 	}
 	dispatch(setLoading(false));
-}
+};
+
+export const orderBy = (order, pokemons) => (dispatch) =>{
+	dispatch(setLoading(true));
+	let pokeCopy = [...pokemons];
+	if(order === 'default'){ dispatch({type: GET_POKEMONS_BY_ORDER, payload: pokeCopy});}
+	else if(order === 'upward'){
+		pokeCopy.sort(function (a, b) {
+  			if (a.name > b.name) return 1;
+  			if (a.name < b.name) return -1;
+  			return 0;
+		});
+		dispatch({type: GET_POKEMONS_BY_ORDER, payload: pokeCopy});
+	}
+	else {
+		pokeCopy.sort(function (a, b) {
+  			if (a.name > b.name) return 1;
+  			if (a.name < b.name) return -1;
+  			return 0;
+		}).reverse();
+		dispatch({type: GET_POKEMONS_BY_ORDER, payload: pokeCopy});
+	}
+	dispatch(setLoading(false));
+};
