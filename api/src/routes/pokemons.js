@@ -13,7 +13,7 @@ router.get("/", async (req,res) => {
 		const pokemons = [...pokemonsDB, ...apiData];
 		if(name){
 			let found = getPokemon(pokemons, name);
-			return res.status(200).json(found);
+			return res.status(200).json([found]);
 		} 
 		res.status(200).json(pokemons);
 	}catch(err){
