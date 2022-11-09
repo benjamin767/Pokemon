@@ -10,6 +10,7 @@ export const GET_POKEMONS_BY_TYPES = "GET_POKEMONS_BY_TYPES";
 export const GET_POKEMONS_BY_SELECTION = "GET_POKEMONS_BY_SELECTION";
 export const GET_POKEMONS_BY_SKILL = "GET_POKEMONS_BY_SKILL";
 export const GET_POKEMONS_BY_ORDER = "GET_POKEMONS_BY_ORDER";
+export const GET_POKEMON = "GET_POKEMON";
 
 export const getPokemons = ()=>{
 	return async function(dispatch){
@@ -138,4 +139,15 @@ export const orderBy = (order, pokemons) => (dispatch) =>{
 		dispatch({type: GET_POKEMONS_BY_ORDER, payload: pokeCopy});
 	}
 	dispatch(setLoading(false));
+};
+
+export const getPokemon = (pokemon)=> async (dispatch) =>{
+	dispatch(setLoading(true));
+	try{
+		let poke = await axios.get(`http://localhost:3001/pokemons?name=${pokemon}`);
+		dispatch({type: GET_POKEMON, payload: poke.data});
+	}catch(error){
+		console.log(error.message);
+	}
+	dispatch(setLoading(true));
 };

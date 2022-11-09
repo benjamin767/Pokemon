@@ -13,6 +13,7 @@ export default function SearchBar({onSearch}) {
   const createdOrApi = ["created", "existing"];
   const defenseOrAttack = ["max attack", "min attack" , "max defense", "min defense"];
   const orders = ["upward", "falling"];
+  let [pkemon, setPokemon] = useState("");
 
   const handlerType = (event)=>{
     let type = event.target.value;

@@ -1,6 +1,7 @@
 import {GET_ALL_POKEMONS, 
   GET_POKEMONS,
   GET_DETAIL_POKEMON, 
+  GET_POKEMON,
   EMPTY_DETAILS, 
   GET_POKEMONS_BY_TYPES, 
   GET_POKEMONS_BY_SELECTION,
@@ -38,6 +39,8 @@ const rootReducer = (state = initialState, action) => {
     case GET_POKEMONS_BY_SKILL: 
       return {...state, pokemons: action.payload};
     case GET_POKEMONS_BY_ORDER: 
+      return {...state, pokemons: action.payload};
+    case GET_POKEMON: 
       return {...state, pokemons: action.payload};
     default: return state;
   }
