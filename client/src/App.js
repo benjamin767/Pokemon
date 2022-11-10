@@ -4,6 +4,7 @@ import Landing from './components/Landing/Landing';
 import Home from './components/Home/Home';
 import Nav from './components/Nav/Nav';
 import DetailsContainer from './components/DetailsContainer/DetailsContainer';
+import CreatePokemon from './components/CreatePokemon/CreatePokemon';
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
           exact
           path='/home/:id'
           component={DetailsContainer}
+        />
+        <Route 
+          exact
+          path='/create'
+          component={CreatePokemon}
         />
       </Switch>
     </div>
