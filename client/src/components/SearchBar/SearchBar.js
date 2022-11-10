@@ -13,7 +13,7 @@ export default function SearchBar({onSearch}) {
   const createdOrApi = ["created", "existing"];
   const defenseOrAttack = ["max attack", "min attack" , "max defense", "min defense"];
   const orders = ["upward", "falling"];
-  let [pkemon, setPokemon] = useState("");
+  let [pokemon, setPokemon] = useState("");
 
   const handlerType = (event)=>{
     let type = event.target.value;
@@ -34,23 +34,31 @@ export default function SearchBar({onSearch}) {
     dispatch(orderBy(order, pokemons));
   }
 
-  return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      onSearch();
-    }}>
+  const handlerPokemon = (event)=>{
+    setPokemon(event.target.value);
+  }
 
-      <input
-        type="text"
-        placeholder=""
-        // value={}
-        // onChange={}
-      />
-      <input type="submit" value="Search" /> 
-      <label>by types:</label> <List options={types} handler={handlerType}/>
-      <label>select them by:</label> <List options={createdOrApi} handler={handlerSelectBy}/>
-      <label>by skill:</label> <List options={defenseOrAttack} handler={handlerSkill}/>
-      <label>order by:</label> <List options={orders} handler={handlerOrder}/>
-    </form>
+  return (
+    <>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        onSearch(pokemon);
+      }}>
+
+        <input
+          type="text"
+          placeholder="Find your favorite pokemon"
+          value={pokemon}
+          onChange={handlerPokemon}
+        />
+        <input type="submit" value="Search" /> 
+      </form>
+      <div>
+        <label>by types:</label> <List options={types} handler={handlerType}/>
+        <label>select them by:</label> <List options={createdOrApi} handler={handlerSelectBy}/>
+        <label>by skill:</label> <List options={defenseOrAttack} handler={handlerSkill}/>
+        <label>order by:</label> <List options={orders} handler={handlerOrder}/>
+      </div>
+    </>
   );
 }
